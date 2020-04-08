@@ -4,21 +4,21 @@ skinparam packageStyle rectangle
 actor socio
 actor cliente
 actor fabrica
-rectangle Embutidos {
-  (elaborar producto) -up- fabrica
-  (retirar producto) .> (elaborar producto) : include
-  (distribuir producto) .> (retirar producto) : include
-  (vender productos) <. (retirar producto) : include
-  (tienda fisica) <. (vender productos) : extends
-  (pedido online) <. (vender productos) : extends
-  (otros socios) <. (vender productos) : extends
-  (lotes productos) <. (vender productos) : extends
+rectangle Proceso_venta {
+  (elaborar producto) -right- fabrica
+  (retirar producto) ..> (elaborar producto) : include
+  (distribuir producto) <. (retirar producto) : extends
+  (vender productos) <. (retirar producto) : extends
+  (vender productos) ...> (pedido online): extends
+  (vender productos) ...> (tienda fisica) : extends
+  (vender productos) ...> (otros socios) : extends
+  (tienda fisica) .> (lotes productos) : extends
   (pedido online) .> (consultar catalogo) : include
-  (realizar pago) <. (vender productos) : extends
-  socio -- (vender productos)
-  socio -- (distribuir producto)
+  (realizar pago) .> (vender productos) : include
+  socio -- (retirar producto)
   socio -- (obtener beneficios)
-  (pedido online) -- cliente
+  (obtener beneficios) .> (vender productos) : include
+  (consultar catalogo) -- cliente
   (realizar pago) - cliente
 }
 @enduml
