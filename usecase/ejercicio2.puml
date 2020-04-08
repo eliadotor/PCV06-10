@@ -7,34 +7,35 @@ actor profesor
 actor alumno
 
 rectangle moodle{
-	usuario -- (darse alta)
-	alumno --|> usuario
-	profesor --|> usuario
-	(crear nuevo curso) -- profesor
-	(crear nuevo curso) .> (darse alta) : include
-	(pertenecer grupo) .> (matricular alumnos) : include
-	alumno -- (pertenecer grupo)
-	(descargar contenido) .> (pertenecer grupo) : extends
-	(subir entregas) .> (pertenecer grupo) : include
-	(matricular alumnos) -- profesor
-	(matricular alumnos) .> (crear nuevo curso) : include
-	(subir temario) -- profesor
-	(crear entrega) -- profesor
-	(subir temario) .> (crear nuevo curso) : include
-	(crear entrega) .> (crear nuevo curso) : include
-	alumno - (consultar temario)
-	(consultar temario) .> (subir temario) : include
-	(descargar contenido) <. (consultar temario) : extends
-	alumno - (descargar contenido)
-	alumno -- (subir entregas)
-	(subir entregas) .> (crear entrega) : include
-	(evaluar entregas) -- profesor
-	(evaluar entregas) <. (subir entregas) : extends
-	(crear avisos) -- profesor
-	alumno -- (consultar avisos)
-	(consultar avisos) <. (crear avisos) : extends
-	alumno -- (chat)
-	(chat) -- profesor
+(log in) .> (darse alta) : include
+usuario --- (log in)
+usuario <|-- alumno
+usuario <|-- profesor
+profesor -- (gestionar grupo)
+profesor -- (crear nuevo curso)
+(gestionar grupo) .> (crear nuevo curso) : include
+(gestionar grupo) <.. (subir temario) : extends
+(gestionar grupo) <.. (crear entrega) :extends
+(subir temario) <.. (modificar contenidos) : extends
+(subir temario) <.. (eliminar contenidos) : extends
+(crear entrega) <. (modificar entrega) : extends
+(eliminar entrega) .> (crear entrega) : extends
+(crear entrega) <.. (calificar entrega) : extends
+(gestionar grupo) <.. (crear avisos): extends
+(gestionar grupo) <.. (matricular alumnos) : extends
+
+(pertenecer curso) -- alumno
+(matricular alumnos) <.. (pertenecer curso) : include
+(consultar temario) ..> (pertenecer curso) : extends
+(subir temario) <.. (consultar temario) : include
+(consultar temario) <. (descargar contenido) : include
+(descargar contenido) ..> (pertenecer curso) : extends
+(subir entregas) ..> (pertenecer curso) : extends
+(crear entrega) <.. (subir entregas) : include
+(calificar entrega) .> (subir entregas) : include
+(consultar avisos) ..> (pertenecer curso) : extends
+(crear avisos) <.. (consultar avisos) : include
+usuario -- (chat)
 }
 
 @enduml
