@@ -9,11 +9,11 @@ rectangle Proceso_venta {
   (elaborar producto) --up-- fabrica
   (vender productos) .> (elaborar producto) : include
   (distribuir producto) .> (elaborar producto) : include
-  (vender productos) ...> (tienda fisica fabrica) : extends
-  (vender productos) ...> (web): extends
-  (vender productos) ...> (tienda fisica) : extends
-  (vender productos) ...> (otros socios) : extends
-  (tienda fisica) .> (lotes productos) : extends
+  (vender productos) <... (tienda fisica fabrica) : extends
+  (vender productos) <... (web): extends
+  (vender productos) <... (tienda fisica) : extends
+  (vender productos) <... (otros socios) : extends
+  (tienda fisica) <. (lotes productos) : extends
   (realizar pago) .> (vender productos) : include
   socio -down- (vender productos)
   socio -- (distribuir producto)
@@ -21,9 +21,9 @@ rectangle Proceso_venta {
   (obtener beneficios) ..> (tienda fisica fabrica) : include
   (obtener beneficios) ..> (web) : include
   (web) -- cliente
-  (web) ..> (consultar catalogo) : extends
-  (web) ..> (consultar precios) : extends
-  (web) ..> (hacer pedidos) : extends
+  (web) <.. (consultar catalogo) : extends
+  (web) <.. (consultar precios) : extends
+  (web) <.. (hacer pedidos) : extends
   (realizar pago) -- cliente
 }
 @enduml
