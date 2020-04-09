@@ -24,6 +24,7 @@ rectangle Proceso_venta {
   (web) <.. (consultar catalogo) : extends
   (web) <.. (consultar precios) : extends
   (web) <.. (hacer pedidos) : extends
+  (hacer pedidos) .> (consultar catalogo) : include
   (realizar pago) -- cliente
 }
 @enduml
