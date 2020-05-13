@@ -1,0 +1,45 @@
+@startuml
+hide footbox
+
+title Gestión de pedidos
+
+actor Cliente 
+
+Cliente ++
+Cliente -> Pedido++: 1: RealizarPedido
+Pedido -> Pedido++: 1.1: buscarCliente
+deactivate Pedido
+
+alt buscarCliente == false
+    Cliente <-- Pedido : 1.1.2: pedirDatos
+    Cliente -> Pedido : 1.1.3: introducirDatos
+    Pedido -> Pedido++: 1.2: crearCliente
+    deactivate Pedido
+end
+
+Pedido -> Producto++ : 1.3: listarProductos
+Pedido <-- Producto : 1.4: listaProductos
+deactivate Producto
+Cliente <-- Pedido : 1.4.1: mostrarProductos
+deactivate Pedido
+
+Cliente -> Pedido++: 2: seleccionarProducto
+Pedido -> Producto++ : 2.1: recuperarDatosProducto
+Cliente <- Producto : 2.2: mostrarDatosProducto
+deactivate Producto
+deactivate Pedido
+
+Cliente -> Cliente++ : 3: confirmarSelección
+deactivate Cliente
+
+alt confirmarSelección == true
+    Cliente -> Pedido++: 3: confirmarPedido
+    Cliente <- Pedido: 3.1: muestraIDPedido
+    deactivate Pedido
+else confirmarSelección == false
+    Cliente -> Pedido++ : 3.1: cancelarPedido
+    destroy Pedido
+
+end
+
+@enduml
