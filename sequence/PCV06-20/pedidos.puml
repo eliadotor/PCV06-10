@@ -11,16 +11,16 @@ Pedido -> Pedido++: 1.1: buscarCliente
 deactivate Pedido
 
 alt buscarCliente == false
-    Cliente <-- Pedido : 1.1.2: pedirDatos
-    Cliente -> Pedido : 1.1.3: introducirDatos
-    Pedido -> Pedido++: 1.2: crearCliente
+    Cliente <-- Pedido : 1.1.1: pedirDatos
+    Cliente -> Pedido : 1.1.2: introducirDatos
+    Pedido -> Pedido++: 1.1.2.1: crearCliente
     deactivate Pedido
 end
 
-Pedido -> Producto++ : 1.3: listarProductos
-Pedido <-- Producto : 1.4: listaProductos
+Pedido -> Producto++ : 1.2: recuperarProductos
+Pedido <-- Producto : 1.3: listaProductos
 deactivate Producto
-Cliente <-- Pedido : 1.4.1: mostrarProductos
+Cliente <- Pedido : 1.3.1: mostrarProductos
 deactivate Pedido
 
 Cliente -> Pedido++: 2: seleccionarProducto
