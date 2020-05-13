@@ -1,9 +1,9 @@
 # PCV06-20
 
-## [1-](sequence/pedidos.puml) Diagrama de secuencia Gestión de Pedidos 
+## [1-](sequence/PCV06-20/pedidos.puml) Diagrama de secuencia Gestión de Pedidos 
 
-![Fabrica_embutidos](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/eliadotor/UML/master/sequence/PCV06-20/pedidos.puml)
+![Gestion_pedidos](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/eliadotor/UML/master/sequence/PCV06-20/pedidos.puml)
 
-## [2-](sequence/pagoPedidos.puml) Diagrama de secuencia Pago de Pedidos
+## [2-](sequence/PCV06-20/pagoPedidos.puml) Diagrama de secuencia Pago de Pedidos
 
-![Aula_virtual](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/eliadotor/UML/master/sequence/PCV06-20/pagoPedidos.puml)
+![Pago_pedidos](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/eliadotor/UML/master/sequence/PCV06-20/pagoPedidos.puml)
