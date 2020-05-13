@@ -10,50 +10,50 @@ Cliente -> Pago++: 1: solicitarPago
 Pago -> Pedido++: 1.1: consultaPedidosPendientes
 Pedido -> Pedido++: 1.1.1: buscarPedidosPendientes
 deactivate Pedido
-alt buscarPedidosPendientes != 0
-   loop para cada pedido
-        Cliente <-- Pedido: 1.1.2: muestraPedidosPagoPendientes
-        deactivate Pedido
-    end
-    
-    Cliente -> Pedido++: 2: seleccionarPedidoAPagar
-    Cliente <-- Pedido: 2.1: resumenPedido
-    Cliente -> Pedido: 3: confirmarPedido
-    Pago <-- Pedido: 3.1: solicitaPago
-    Cliente <-- Pago: 3.1.1: solicitarFormaPago
-    deactivate Pedido
-    deactivate Pago
-    Cliente -> Pago++: 4: seleccionarFormaPago
-    
-    alt formaPago == efectivo
-        Cliente -> Pago : 4.1: realizaPago
-        Cliente <-- Pago : 4.1.1: confirmaPago
-        destroy Pago
-    else formaPago == tarjeta
-        Cliente -> Pago++ : 4.1: introducirDatos
-        Cliente -> Pago : 4.2: realizaPago
-        Pago -> Banco++: 4.2.1: contactaBanco
-        Banco -> Banco++ : 4.3: comprobarDatos
-        deactivate Banco
 
-        alt saldo == 0
-            Pago <-- Banco: 4.2.2: rechazaPago
-            activate Pago
-            Pago -> Pedido++: 4.2.3: cancelaPedido
-            destroy Pago
-            Cliente <-- Pedido: 4.3: muestraEstadoPedido
-            deactivate Pedido
-        else saldo != 0
-            Pago <-- Banco: 4.2.2: confirmaPago
-            deactivate Banco
-            activate Pago
-            Pago -> Pedido++: 4.2.3: confirmaPedido
-            destroy Pago
-            deactivate Pago
-            Cliente <-- Pedido: 4.3: muestraIDPedido
-            deactivate Pedido
-        end     
-    end
+loop para cada pedido
+    Cliente <- Pedido: 1.1.2: muestraPedidosPagoPendientes
+    deactivate Pedido
 end
+
+Cliente -> Pedido++: 2: seleccionarPedidoAPagar
+Cliente <-- Pedido: 2.1: resumenPedido
+Cliente -> Pedido: 3: confirmarPedido
+Pago <-- Pedido: 3.1: solicitaPago
+Cliente <- Pago: 3.1.1: solicitarFormaPago
+deactivate Pedido
+deactivate Pago
+Cliente -> Pago++: 4: seleccionarFormaPago
+
+alt formaPago == efectivo
+    Cliente -> Pago : 4.1: realizaPago
+    Cliente <- Pago : 4.1.1: confirmaPago
+    destroy Pago
+else formaPago == tarjeta
+    Cliente -> Pago++ : 4.1: introducirDatos
+    Cliente -> Pago : 4.2: realizaPago
+    Pago -> Banco++: 4.2.1: contactaBanco
+    Banco -> Banco++ : 4.3: comprobarDatos
+    deactivate Banco
+
+    alt saldo == 0
+        Pago <-- Banco: 4.2.2: rechazaPago
+        activate Pago
+        Pago -> Pedido++: 4.2.3: cancelaPedido
+        destroy Pago
+        Cliente <- Pedido: 4.3: muestraEstadoPedido
+        deactivate Pedido
+    else saldo != 0
+        Pago <-- Banco: 4.2.2: confirmaPago
+        deactivate Banco
+        activate Pago
+        Pago -> Pedido++: 4.2.3: confirmaPedido
+        destroy Pago
+        deactivate Pago
+        Cliente <- Pedido: 4.3: muestraIDPedido
+        deactivate Pedido
+    end     
+end
+
 
 @enduml
