@@ -1,9 +1,12 @@
 @startuml
+skinparam sequenceParticipant underline
 hide footbox
 
 title Gestión de pedidos
 
 actor Cliente 
+participant ":Pedido" as Pedido
+participant ":Producto" as Producto
 
 Cliente ++
 Cliente -> Pedido++: 1: RealizarPedido
