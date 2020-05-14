@@ -1,9 +1,13 @@
 @startuml
+skinparam sequenceParticipant underline
 hide footbox
 
 title Gestión de pedidos
 
 actor Cliente 
+participant ":Pedido" as Pedido
+participant ":Pago" as Pago
+actor Banco
 
 Cliente ++
 Cliente -> Pago++: 1: solicitarPago
@@ -12,7 +16,7 @@ Pedido -> Pedido++: 1.1.1: buscarPedidosPendientes
 deactivate Pedido
 
 loop para cada pedido
-    Cliente <- Pedido: 1.1.2: muestraPedidosPagoPendientes
+    Cliente <-- Pedido: 1.1.2: muestraPedidosPagoPendientes
     deactivate Pedido
 end
 
@@ -41,7 +45,7 @@ else formaPago == tarjeta
         activate Pago
         Pago -> Pedido++: 4.2.3: cancelaPedido
         destroy Pago
-        Cliente <- Pedido: 4.3: muestraEstadoPedido
+        Cliente <-- Pedido: 4.3: muestraPedidoCancelado
         deactivate Pedido
     else saldo != 0
         Pago <-- Banco: 4.2.2: confirmaPago
@@ -50,7 +54,7 @@ else formaPago == tarjeta
         Pago -> Pedido++: 4.2.3: confirmaPedido
         destroy Pago
         deactivate Pago
-        Cliente <- Pedido: 4.3: muestraIDPedido
+        Cliente <-- Pedido: 4.3: muestraIDPedido
         deactivate Pedido
     end     
 end
